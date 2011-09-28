@@ -2,29 +2,27 @@ package com.wimy.gaelauncher;
 
 import java.io.IOException;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Composite;
-import swing2swt.layout.FlowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
 public class MainForm {
 
 	protected Shell shell;
 	private Text txthomezelonprogramsgoogleappengine;
 	private Text txthomezelonworkspaceindigowwwwimycom;
+	private StyledText log;
 
 	/**
 	 * Launch the application.
@@ -132,10 +130,10 @@ public class MainForm {
 		log = new StyledText(composite_1, SWT.BORDER);
 	}
 	
-	StyledText log;
-	
 	private void addLog(String msg) {
 		log.append(msg + "\n");
+		
+		log.setTopIndex(log.getLineCount() - 1);
 	}
 
 	
