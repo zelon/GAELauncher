@@ -20,8 +20,8 @@ import org.eclipse.swt.widgets.Text;
 public class MainForm {
 
 	protected Shell shell;
-	private Text txthomezelonprogramsgoogleappengine;
-	private Text txthomezelonworkspaceindigowwwwimycom;
+	private Text mGAELocation;
+	private Text mAppRootDir;
 	private StyledText log;
 
 	/**
@@ -68,13 +68,13 @@ public class MainForm {
 		lblGaeLocation.setLayoutData(fd_lblGaeLocation);
 		lblGaeLocation.setText("GAE Location :");
 		
-		txthomezelonprogramsgoogleappengine = new Text(shell, SWT.BORDER);
-		txthomezelonprogramsgoogleappengine.setText("/home/zelon/Programs/google_appengine");
-		FormData fd_txthomezelonprogramsgoogleappengine = new FormData();
-		fd_txthomezelonprogramsgoogleappengine.right = new FormAttachment(0, 437);
-		fd_txthomezelonprogramsgoogleappengine.top = new FormAttachment(0, 5);
-		fd_txthomezelonprogramsgoogleappengine.left = new FormAttachment(0, 99);
-		txthomezelonprogramsgoogleappengine.setLayoutData(fd_txthomezelonprogramsgoogleappengine);
+		mGAELocation = new Text(shell, SWT.BORDER);
+		mGAELocation.setText("/home/zelon/Programs/google_appengine");
+		FormData fd_mGAELocation = new FormData();
+		fd_mGAELocation.right = new FormAttachment(0, 437);
+		fd_mGAELocation.top = new FormAttachment(0, 5);
+		fd_mGAELocation.left = new FormAttachment(0, 99);
+		mGAELocation.setLayoutData(fd_mGAELocation);
 		
 		Composite composite = new Composite(shell, SWT.NONE);
 		FormData fd_composite = new FormData();
@@ -84,21 +84,21 @@ public class MainForm {
 		composite.setLayoutData(fd_composite);
 		composite.setLayout(new FormLayout());
 		
-		txthomezelonworkspaceindigowwwwimycom = new Text(composite, SWT.BORDER);
-		txthomezelonworkspaceindigowwwwimycom.setText("/home/zelon/workspaceIndigo/www.wimy.com");
-		FormData fd_txthomezelonworkspaceindigowwwwimycom = new FormData();
-		fd_txthomezelonworkspaceindigowwwwimycom.left = new FormAttachment(0);
-		fd_txthomezelonworkspaceindigowwwwimycom.top = new FormAttachment(0, 3);
-		txthomezelonworkspaceindigowwwwimycom.setLayoutData(fd_txthomezelonworkspaceindigowwwwimycom);
+		mAppRootDir = new Text(composite, SWT.BORDER);
+		mAppRootDir.setText("/home/zelon/workspaceIndigo/www.wimy.com");
+		FormData fd_mAppRootDir = new FormData();
+		fd_mAppRootDir.left = new FormAttachment(0);
+		fd_mAppRootDir.top = new FormAttachment(0, 3);
+		mAppRootDir.setLayoutData(fd_mAppRootDir);
 		
 		Button btnTestServer = new Button(composite, SWT.NONE);
 		btnTestServer.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				startTestServer(txthomezelonprogramsgoogleappengine.getText(), txthomezelonworkspaceindigowwwwimycom.getText(), 8080);
+				startTestServer(mGAELocation.getText(), mAppRootDir.getText(), 8080);
 			}
 		});
-		fd_txthomezelonworkspaceindigowwwwimycom.right = new FormAttachment(btnTestServer, -6);
+		fd_mAppRootDir.right = new FormAttachment(btnTestServer, -6);
 		FormData fd_btnTestServer = new FormData();
 		fd_btnTestServer.bottom = new FormAttachment(100);
 		btnTestServer.setLayoutData(fd_btnTestServer);
@@ -108,7 +108,7 @@ public class MainForm {
 		btnDeploy.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				deploy(txthomezelonprogramsgoogleappengine.getText(), txthomezelonworkspaceindigowwwwimycom.getText());
+				deploy(mGAELocation.getText(), mAppRootDir.getText());
 			}
 		});
 		fd_btnTestServer.right = new FormAttachment(btnDeploy, -6);
@@ -127,7 +127,7 @@ public class MainForm {
 		composite_1.setLayoutData(fd_composite_1);
 		composite_1.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
-		log = new StyledText(composite_1, SWT.BORDER);
+		log = new StyledText(composite_1, SWT.BORDER | SWT.V_SCROLL);
 	}
 	
 	private void addLog(String msg) {
