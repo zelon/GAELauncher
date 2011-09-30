@@ -19,10 +19,11 @@ import org.eclipse.swt.widgets.Text;
 
 public class MainForm {
 
-	protected Shell shell;
+	protected Shell mainShell;
 	private Text mGAELocation;
 	private Text mAppRootDir;
 	private StyledText log;
+	final private String pythonBin = "python2.6";
 
 	/**
 	 * Launch the application.
@@ -43,9 +44,9 @@ public class MainForm {
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
-		shell.open();
-		shell.layout();
-		while (!shell.isDisposed()) {
+		mainShell.open();
+		mainShell.layout();
+		while (!mainShell.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -56,19 +57,19 @@ public class MainForm {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
-		shell.setLayout(new FormLayout());
+		mainShell = new Shell();
+		mainShell.setSize(450, 300);
+		mainShell.setText("Google App Engine Launcher");
+		mainShell.setLayout(new FormLayout());
 		
-		Label lblGaeLocation = new Label(shell, SWT.NONE);
+		Label lblGaeLocation = new Label(mainShell, SWT.NONE);
 		FormData fd_lblGaeLocation = new FormData();
 		fd_lblGaeLocation.top = new FormAttachment(0, 10);
 		fd_lblGaeLocation.left = new FormAttachment(0, 5);
 		lblGaeLocation.setLayoutData(fd_lblGaeLocation);
 		lblGaeLocation.setText("GAE Location :");
 		
-		mGAELocation = new Text(shell, SWT.BORDER);
+		mGAELocation = new Text(mainShell, SWT.BORDER);
 		mGAELocation.setText("/home/zelon/Programs/google_appengine");
 		FormData fd_mGAELocation = new FormData();
 		fd_mGAELocation.right = new FormAttachment(0, 437);
@@ -76,7 +77,7 @@ public class MainForm {
 		fd_mGAELocation.left = new FormAttachment(0, 99);
 		mGAELocation.setLayoutData(fd_mGAELocation);
 		
-		Composite composite = new Composite(shell, SWT.NONE);
+		Composite composite = new Composite(mainShell, SWT.NONE);
 		FormData fd_composite = new FormData();
 		fd_composite.right = new FormAttachment(0, 437);
 		fd_composite.top = new FormAttachment(0, 39);
@@ -118,7 +119,7 @@ public class MainForm {
 		btnDeploy.setLayoutData(fd_btnDeploy);
 		btnDeploy.setText("Deploy");
 		
-		Composite composite_1 = new Composite(shell, SWT.NONE);
+		Composite composite_1 = new Composite(mainShell, SWT.NONE);
 		FormData fd_composite_1 = new FormData();
 		fd_composite_1.bottom = new FormAttachment(100, -10);
 		fd_composite_1.right = new FormAttachment(0, 437);
@@ -145,8 +146,9 @@ public class MainForm {
 		
 		String [] cmds = new String[] {
 			"/usr/bin/gnome-terminal"
+				,"--title=GAE_TestServer"
 				,"--command"
-				,"python " + gaeLocation + "/dev_appserver.py --port=" + port + " " + rootDir
+				,pythonBin + " " + gaeLocation + "/dev_appserver.py --port=" + port + " " + rootDir
 		};
 		
 		try {
@@ -164,8 +166,9 @@ public class MainForm {
 		
 		String [] cmds = new String[] {
 			"/usr/bin/gnome-terminal"
+				,"--title=GAE_Update"
 				,"--command"
-				,"python " + gaeLocation + "/appcfg.py update " + rootDir
+				,pythonBin + " " + gaeLocation + "/appcfg.py update " + rootDir
 		};
 		
 		try {
