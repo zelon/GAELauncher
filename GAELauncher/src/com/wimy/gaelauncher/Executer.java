@@ -26,7 +26,7 @@ public class Executer {
 			"/usr/bin/gnome-terminal"
 				,"--title=GAE_TestServer"
 				,"--command"
-				,pythonLocation + " " + gaeLocation + "/dev_appserver.py --port=" + port + " " + rootDir
+				,pythonLocation + " " + gaeLocation + "/dev_appserver.py --address=0.0.0.0 --port=" + port + " " + rootDir
 		};
 		
 		try {
