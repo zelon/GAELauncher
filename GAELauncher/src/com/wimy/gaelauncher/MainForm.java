@@ -15,6 +15,8 @@ import org.eclipse.swt.widgets.Text;
 
 import swing2swt.layout.BorderLayout;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.DisposeEvent;
 
 public class MainForm
 	implements Logger
@@ -41,12 +43,26 @@ public class MainForm
 		mExecuter = new Executer(this);
 	}
 	
+	private void setDefaultValues()
+	{
+		LastValueManager manager = LastValueManager.getInstance(); 
+		if ( manager.load() )
+		{
+			txtPythonLocation.setText(manager.getLastPythonBinDirectory());
+			mAppRootDir.setText(manager.getLastProjectDirectory());
+			mGAELocation.setText(manager.getLastAppEngineDirectory());
+		}
+	}
+	
 	/**
 	 * Open the window.
 	 */
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
+		
+		setDefaultValues();
+		
 		mainShell.open();
 		mainShell.layout();
 		while (!mainShell.isDisposed()) {
@@ -61,6 +77,15 @@ public class MainForm
 	 */
 	protected void createContents() {
 		mainShell = new Shell();
+		mainShell.addDisposeListener(new DisposeListener() {
+			public void widgetDisposed(DisposeEvent arg0) {
+				LastValueManager manager = LastValueManager.getInstance();
+				manager.setLastAppEngineDirectory(mGAELocation.getText());
+				manager.setLastProjectDirectory(mAppRootDir.getText());
+				manager.setLastPythonBinDirectory(txtPythonLocation.getText());
+				manager.save();
+			}
+		});
 		mainShell.setSize(460, 397);
 		mainShell.setText("Google App Engine Launcher");
 		mainShell.setLayout(new BorderLayout(0, 0));
